@@ -57,14 +57,14 @@ __meta__ = {
 }
 
 [node name="TextBubble" type="Control" parent="."]
-anchor_top = 0.79
+anchor_top = 0.651
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 57.0
-margin_top = -83.488
+margin_top = -0.0880127
 margin_right = -57.0
 margin_bottom = -42.4877
-rect_min_size = Vector2( 455, 83 )
+rect_min_size = Vector2( 432, 83 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -153,17 +153,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="VBoxContainer" parent="."]
+[node name="VOptions" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -19.9999
-margin_right = 20.0
-margin_bottom = 19.9999
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HOptions" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.258
+margin_left = -341.0
+margin_top = 155.0
+margin_right = 324.0
+margin_bottom = 123.2
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
