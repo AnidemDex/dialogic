@@ -38,10 +38,6 @@ func _ready():
 	if timeline != '':
 		dialog_script = set_current_dialog('/' + timeline + '.json')
 	
-	# Connecting resize signal
-	get_viewport().connect("size_changed", self, "resize_main")
-	resize_main()
-	
 	# Setting everything up for the node to be default
 	$TextBubble/NameLabel.text = ''
 	$Background.visible = false
