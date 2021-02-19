@@ -87,8 +87,6 @@ func _ready():
 	n['glossary_color'].color = Color(settings['glossary_color'])
 	n['glossary_font'].text = DialogicUtil.get_filename_from_path(settings['glossary_font'])
 
-	#Refreshing the dialog 
-	_on_PreviewButton_pressed()
 
 func _on_BackgroundTextureButton_pressed():
 	editor_reference.godot_dialog("*.png")
@@ -143,6 +141,7 @@ func _on_PreviewButton_pressed():
 		"text": n['text_preview'].text
 	}]
 	preview_dialog.parse_glossary(preview_dialog.dialog_script)
+	preview_dialog.get_node("TextBubble").anchor_top = 0
 	n['preview_panel'].add_child(preview_dialog)
 
 
@@ -242,3 +241,12 @@ func _on_GlossaryFontButton_pressed():
 func _on_Glossary_Font_selected(path, target):
 	DialogicUtil.update_setting('glossary_font', path)
 	n['glossary_font'].text = DialogicUtil.get_filename_from_path(path)
+
+
+func _on_visibility_changed():
+	if visible:
+		#Refreshing the dialog 
+		_on_PreviewButton_pressed()
+	else:
+		for i in n['preview_panel'].get_children():
+			i.free()
