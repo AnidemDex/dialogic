@@ -6,26 +6,37 @@ var character_data = {
 	'color': Color(0.973511, 1, 0.152344),
 	'file': ''
 }
-var positions = {'left': Vector2(-400,0), 'right': Vector2(+400,0), 'center': Vector2(0,0), 'center_right': Vector2(200,0), 'center_left': Vector2(-200,0)}
+# Changed
+var positions = {
+	'left': Vector2(-400,0), 
+	'right': Vector2(+400,0), 
+	'center': Vector2(0,0), 
+	'center_right': Vector2(200,0), 
+	'center_left': Vector2(-200,0),
+	'none': Vector2.ZERO
+}
+
 var direction = 'left'
 var debug = false
 
+var _previous_rect_size = Vector2.ZERO
+
 func init(expression: String = '', position_offset = 'left') -> void:
-	rect_position += positions[position_offset]
+	#rect_position += positions[position_offset]
 	direction = position_offset
 	modulate = Color(1,1,1,0)
 	#if character_data.image == null:
 	#	push_error('The DialogCharacterResource [' + character_data.name + '] doesn\'t have an Image set.')
 	#	character_data.image = load("res://addons/dialogic/Images/portraits/df-1.png")
 	set_portrait(expression)
-	rect_position -= Vector2($TextureRect.texture.get_width() * 0.5, $TextureRect.texture.get_height())
+	#rect_position -= Vector2($TextureRect.texture.get_width() * 0.5, $TextureRect.texture.get_height())
 
 
 func _ready():
 	if debug:
 		print('Character data loaded: ', character_data)
 		print(rect_position, $TextureRect.rect_size)
-
+	_on_resized()
 
 func set_portrait(expression: String) -> void:
 	if expression == '':
@@ -74,3 +85,28 @@ func tween_modulate(from_value, to_value, time = 0.5):
 	)
 	tween_node.start()
 	return tween_node
+
+
+func _on_resized():
+	# Since portraits are generated from origin (top left), left is 0
+	if !get_parent():
+		# Makes sure if it had a parent
+		return
+	
+
+	var parent:Control = get_parent()
+	var parent_section_size = (parent.rect_size/5)/2
+
+	if parent.rect_size.x == _previous_rect_size.x:
+		return
+	
+	positions = {
+		'left': -parent_section_size, 
+		'center_left': parent_section_size,
+		'center': parent_section_size*3,
+		'center_right': parent.rect_size-(parent_section_size*5),  
+		'right': parent.rect_size-(parent_section_size*3), 
+		'none': 0
+	}
+	rect_position.x = positions[direction].x
+	_previous_rect_size = parent.rect_size

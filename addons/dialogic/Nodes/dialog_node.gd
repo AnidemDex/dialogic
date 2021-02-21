@@ -24,6 +24,7 @@ var characters
 
 onready var ChoiceButton = load("res://addons/dialogic/Nodes/ChoiceButton.tscn")
 onready var Portrait = load("res://addons/dialogic/Nodes/Portrait.tscn")
+onready var _selected_option_container: BoxContainer # To change between VBox and HBox
 var dialog_script = {}
 var questions #for keeping track of the questions answered
 
@@ -38,16 +39,12 @@ func _ready():
 	if timeline != '':
 		dialog_script = set_current_dialog('/' + timeline + '.json')
 	
-	# Connecting resize signal
-	get_viewport().connect("size_changed", self, "resize_main")
-	resize_main()
-	
 	# Setting everything up for the node to be default
 	$TextBubble/NameLabel.text = ''
 	$Background.visible = false
 	$TextBubble/RichTextLabel.meta_underlined = false
 	$GlossaryInfo.visible = false
-	
+	_selected_option_container = $VOptions
 	# Getting the character information
 	characters = DialogicUtil.get_character_list()
 	
@@ -176,9 +173,9 @@ func _process(_delta):
 	if Engine.is_editor_hint() == false:
 		# Multiple choices
 		if waiting_for_answer:
-			$Options.visible = finished
+			_selected_option_container.visible = finished
 		else:
-			$Options.visible = false
+			_selected_option_container.visible = false
 		
 		if Input.is_action_just_pressed(input_next):
 			if $TextBubble/Tween.is_active():
@@ -403,7 +400,7 @@ func _on_input_set(variable):
 
 func reset_options():
 	# Clearing out the options after one was selected.
-	for option in $Options.get_children():
+	for option in _selected_option_container.get_children():
 		option.queue_free()
 
 
@@ -442,11 +439,11 @@ func add_choice_button(option):
 	button.get_node('TextureRect').set('margin_top', -1 * settings['button_offset_y'])
 	button.get_node('TextureRect').set('margin_bottom', settings['button_offset_y'])
 	
-	$Options.set('custom_constants/separation', settings['button_separation'] + (settings['button_offset_y']*2))
+	_selected_option_container.set('custom_constants/separation', settings['button_separation'] + (settings['button_offset_y']*2))
 
 	button.connect("pressed", self, "answer_question", [button, option['event_id'], option['question_id']])
 	
-	$Options.add_child(button)
+	_selected_option_container.add_child(button)
 
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE:
 		last_mouse_mode = Input.get_mouse_mode()

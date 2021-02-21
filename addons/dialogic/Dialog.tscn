@@ -57,14 +57,14 @@ __meta__ = {
 }
 
 [node name="TextBubble" type="Control" parent="."]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchor_top = 0.651
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -455.0
-margin_top = -209.488
-margin_right = 455.0
+margin_left = 57.0
+margin_top = -0.0880127
+margin_right = -57.0
 margin_bottom = -42.4877
+rect_min_size = Vector2( 432, 83 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -96,7 +96,6 @@ margin_left = 20.0
 margin_top = 10.0
 margin_right = -20.0
 margin_bottom = -10.0
-rect_clip_content = false
 custom_styles/normal = SubResource( 1 )
 custom_fonts/normal_font = ExtResource( 3 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
@@ -154,17 +153,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="VBoxContainer" parent="."]
+[node name="VOptions" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -19.9999
-margin_right = 20.0
-margin_bottom = 19.9999
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HOptions" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.258
+margin_left = -341.0
+margin_top = 155.0
+margin_right = 324.0
+margin_bottom = 123.2
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -179,6 +196,7 @@ margin_top = -57.0
 margin_right = 192.0
 margin_bottom = 57.0
 popup_exclusive = true
+window_title = "¡Alerta!"
 dialog_hide_on_ok = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -289,7 +307,6 @@ __meta__ = {
 [node name="Timer" type="Timer" parent="GlossaryInfo"]
 
 [node name="WaitSeconds" type="Timer" parent="."]
-
 [connection signal="meta_hover_ended" from="TextBubble/RichTextLabel" to="." method="_on_RichTextLabel_meta_hover_ended"]
 [connection signal="meta_hover_started" from="TextBubble/RichTextLabel" to="." method="_on_RichTextLabel_meta_hover_started"]
 [connection signal="tween_completed" from="TextBubble/Tween" to="." method="_on_Tween_tween_completed"]
