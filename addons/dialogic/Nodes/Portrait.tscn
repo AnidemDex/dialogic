@@ -4,18 +4,23 @@
 [ext_resource path="res://addons/dialogic/Nodes/Portrait.gd" type="Script" id=2]
 
 [node name="Portrait" type="Control"]
+anchor_right = 0.370117
+anchor_bottom = 1.0
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-anchor_right = 0.167
-margin_right = 357.0
-margin_bottom = 686.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 5
 texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Tween" type="Tween" parent="."]
+[connection signal="resized" from="." to="." method="_on_resized"]
